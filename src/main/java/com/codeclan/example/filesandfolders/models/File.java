@@ -26,11 +26,29 @@ public class File {
     @ManyToOne
     private Folder folder;
 
+    @JsonIgnoreProperties("files")
+    @ManyToMany
+    @JoinTable(
+            name = "users_files",
+            joinColumns = {@JoinColumn(
+                    name = "file_id",
+                    nullable = false,
+                    updatable = false
+            )},
+            inverseJoinColumns = {@JoinColumn(
+                    name = "user_id",
+                    nullable = false,
+                    updatable = false
+            )}
+    )
+    private List<User> users;
+
     public File(String name, String extension, int size, Folder folder) {
         this.name = name;
         this.extension = extension;
         this.size = size;
         this.folder = folder;
+        this.users = new ArrayList<>();
     }
 
     public File() {
@@ -74,5 +92,17 @@ public class File {
 
     public void setFolder(Folder folder) {
         this.folder = folder;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public void addUser(User user) {
+        this.users.add(user);
     }
 }
