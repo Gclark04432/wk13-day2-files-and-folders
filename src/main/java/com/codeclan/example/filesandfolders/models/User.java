@@ -26,7 +26,7 @@ public class User {
                     updatable = false)
             },
             inverseJoinColumns = {@JoinColumn(
-                    name = "files_id",
+                    name = "file_id",
                     nullable = false,
                     updatable = false)
             }
